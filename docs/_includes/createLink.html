@@ -43,7 +43,7 @@
     }
 
     var createHref1 = function(text) {
-        return createHref4("/", text, ".html", text);
+        return createHref4("", text, ".html", text);
     }
 
     var linkUrlElements = document.querySelectorAll('makeLink');
@@ -67,7 +67,7 @@
         //    console.log("Set to ", element.innerHTML);
         //}
         //else {
-            element.innerHTML = createHref4("/", element.innerHTML, ".html", element.innerHTML + "&lt;ElementType&gt;");
+            element.innerHTML = createHref4("", element.innerHTML, ".html", element.innerHTML + "&lt;ElementType&gt;");
             console.log("Set to ", element.innerHTML);
         //}
     });

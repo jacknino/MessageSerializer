@@ -7,6 +7,7 @@
           {% if item.link %}
           {% assign linkToUse = item.link %}
           {% endif %}
+          {% capture linkToUse %}{{ linkToUse | relative_url }}{% endcapture %}
           <li>
               <div {% if page.url == linkToUse %} class="highlight" {% endif %}>
                   <a href="{{ linkToUse }}" {% if page.url == linkToUse %} class="kc" {% endif %}>
