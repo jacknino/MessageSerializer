@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://www.dorkyengineer.com/MessageSerializerClassInfo/" xmlns="http://www.dorkyengineer.com/MessageSerializerClassInfo/" version="2020-04-22">
+	<xs:complexType name="PropertyInfoListType">
+		<xs:annotation>
+			<xs:documentation>List of properties for the class</xs:documentation>
+		</xs:annotation>
+		<xs:sequence maxOccurs="unbounded">
+			<xs:element name="PropertyInfo">
+				<xs:annotation>
+					<xs:documentation>A property on the class and how it should be used</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:attribute name="Name" type="xs:string" use="required">
+						<xs:annotation>
+							<xs:documentation>The name of the property in the class</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="MessageLengthType" use="optional" default="None">
+						<xs:simpleType>
+							<xs:annotation>
+								<xs:documentation>If the property is a message length field how that length field is used</xs:documentation>
+							</xs:annotation>
+							<xs:restriction base="xs:string">
+								<xs:enumeration value="None"/>
+								<xs:enumeration value="EntireMessage"/>
+								<xs:enumeration value="RestOfMessageIncludingLength"/>
+								<xs:enumeration value="RestOfMessage"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ClassInfoType">
+		<xs:annotation>
+			<xs:documentation>Main element defining a class that is to be used by the MessageSerializer</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PropertyInfoList" type="PropertyInfoListType"/>
+		</xs:sequence>
+		<xs:attribute name="FullName" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The full name of the class that is being defined</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:element name="MessageSerializerClass">
+		<xs:annotation>
+			<xs:documentation>Configuration Settings for a class to be used by the MessageSerializer</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:all>
+				<xs:element name="ClassInfo" type="ClassInfoType" minOccurs="1" />
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,86 @@
+- title: Main
+  pages:
+    - name: Introduction
+      link: /
+    - name: About
+      link: /about.html
+- title: General Overview
+  pages:
+    - name: Serialization
+    - name: Deserialization
+    - name: ToString
+- title: Type Handling
+  pages:
+    - name: Numeric
+    - name: BCD Numeric
+      link: /BcdNumeric.html
+    - name: Enums
+    - name: Date/Time
+      link: /DateTime.html
+    - name: Strings
+    - name: Classes
+    - name: Lists
+    - name: Blob Fields
+- title: Defaults
+  pages:
+    - name: SerializationDefaults
+- title: Attributes
+  pages:
+    - name: ClassProperty
+    - name: MessageProperty
+- title: Property Rules
+  pages:
+    - name: Introduction
+      link: PropertyRuleIntroduction.html
+    - name: Authentication Field
+      link: /PropertyRuleAuthenticationField.html
+    - name: BCD
+      link: /PropertyRuleBcd.html
+    - name: User Defined
+      link: /PropertyRuleUserDefined.html
+- title: Type Selectors
+  pages:
+    - name: Introduction
+      link: TypeSelectorIntroduction.html
+    - name: TypeSelectorByteArray
+    - name: TypeSelectorDateTime
+    - name: TypeSelectorEnum
+    - name: TypeSelectorNumeric
+    - name: TypeSelectorNumericBcd
+    - name: TypeSelectorSpecifiedClass
+    - name: TypeSelectorString
+    - name: User Defined
+      link: TypeSelectorUserDefined.html
+- title: Type Serializers
+  pages:
+    - name: Introduction
+      link: TypeSerializerIntroduction.html
+    - name: TypeSerializerBcd
+    - name: TypeSerializerByteArray
+    - name: TypeSerializerDateTime
+    - name: TypeSerializerEnum
+    - name: TypeSerializerNumeric
+    - name: TypeSerializerSerializableClass
+    - name: TypeSerializerString
+    - name: User Defined
+      link: /TypeSerializerUserDefined.html
+- title: Calculated Fields
+  pages:
+    - name: General
+      link: /CalculatedFieldsGeneral.html
+    - name: Length
+      link: /CalculatedFieldsLength.html
+    - name: Authentication
+      link: /CalculatedFieldsAuthentication.html
+    - name: User Defined
+      link: /CalculatedFieldsUserDefined.html
+- title: Other Classes
+  pages:
+    - name: MessageSerializedPropertyInfo
+    - name: ArrayOps
+    - name: SerializerBase
+- title: ToString
+  pages:
+
+
+ 

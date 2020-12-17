@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MessageSerializerClass xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.dorkyengineer.com/MessageSerializerClassInfo/">
+  <ClassInfo AssemblyName="MessageSerializerUnitTests" ClassFullName="MessageSerializerUnitTests.TestClassInfoXml+SimpleXmlTestClass">
+    <DefaultExcludeProperty>false</DefaultExcludeProperty>
+    <PutInheritedPropertiesLast>false</PutInheritedPropertiesLast>
+    <PropertyInfoList>
+      <PropertyInfo Name="MessageType">
+      </PropertyInfo>
+      <PropertyInfo Name="Value1" />
+      <PropertyInfo Name="Length">
+      </PropertyInfo>
+      <PropertyInfo Name="ValueString">
+      </PropertyInfo>
+    </PropertyInfoList>
+  </ClassInfo>
+</MessageSerializerClass>

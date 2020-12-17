@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MessageSerializerClassInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.dorkyengineer.com/MessageSerializerClassInfo/" xsi:schemaLocation="http://www.dorkyengineer.com/MessageSerializerClassInfo/ MessageSerializerClass.xsd">
+    <ClassInfo FullName="SomeNamespace.SomeClass">
+        <PropertyInfoList>
+            <PropertyInfo Name="NameOfProperty" MessageLengthType="RestOfMessage"/>
+            <PropertyInfo Name="NameOfProperty2" />
+        </PropertyInfoList>
+    </ClassInfo>
+</MessageSerializerClassInfo>
+

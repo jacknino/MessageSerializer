@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MessageSerializerClass xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.dorkyengineer.com/MessageSerializerClassInfo/">
+  <ClassInfo AssemblyName="MessageSerializerUnitTests.SampleMessage, MessageSerializerUnitTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" ClassFullName="MessageSerializerUnitTests.SampleMessage">
+    <MessageClassAttribute>
+      <DefaultExcludeProperty>false</DefaultExcludeProperty>
+      <PutInheritedPropertiesLast>false</PutInheritedPropertiesLast>
+    </MessageClassAttribute>
+    <PropertyInfoList>
+      <PropertyInfo Name="MessageType">
+        <MessagePropertyAttribute />
+      </PropertyInfo>
+      <PropertyInfo Name="Length">
+        <MessagePropertyAttribute>
+          <MessageLengthType>RestOfMessage</MessageLengthType>
+        </MessagePropertyAttribute>
+      </PropertyInfo>
+      <PropertyInfo Name="Id">
+        <MessagePropertyAttribute />
+      </PropertyInfo>
+    </PropertyInfoList>
+  </ClassInfo>
+</MessageSerializerClass>

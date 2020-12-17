@@ -1,0 +1,79 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+/* Add your changes after here */
+/*
+.invisible-table {
+    border: none;
+}
+*/
+
+.twenty {
+    width: 20%;
+}
+
+.eighty {
+    width: 80%;
+}
+
+.defaults-table {
+
+}
+
+.menu-content-table {
+    table-layout: fixed;
+    width: 100%;
+    border: none;
+
+    /*
+    caption {
+        text-transform: uppercase;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    thead {
+        border-top: 0px solid;
+        border-bottom: 0px solid;
+
+        th {
+            text-transform: uppercase;
+            text-align: center;
+            padding: 10px;
+            border: 0px solid;
+        }
+    }
+    */
+
+    tbody {
+        tr {
+            border-bottom: 0px solid;
+
+            td {
+                //padding: 10px;
+                border: 0px solid;
+            }
+
+            th {
+                //padding-left: 10px;
+                border: 0px solid;
+            }
+        }
+    }
+
+    /*
+    tfoot {
+        font-style: italic;
+        border-bottom: 0px solid;
+
+        tr {
+            td {
+                padding: 10px;
+                border: 0px solid;
+            }
+        }
+    }
+    */
+}

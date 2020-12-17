@@ -1,0 +1,74 @@
+<script>
+    //var elements = document.querySelectorAll('p');
+    //Array.prototype.forEach.call(elements, function (el, i) {
+    //    if (el.innerHTML == '[expand]') {
+    //        var parentContent = el.parentNode.innerHTML.replace('<p>[expand]</p>', '<div class="expand" style="display: none; height: 0; overflow: hidden;">').replace('<p>[/expand]</p>', '</div>');
+    //        el.parentNode.innerHTML = parentContent;
+    //    }
+    //});
+
+    //var elements = document.querySelectorAll('div.expand');
+    //Array.prototype.forEach.call(elements, function (el, i) {
+    //    el.previousElementSibling.innerHTML = el.previousElementSibling.innerHTML + '<span>..&nbsp; <a href="#" style="cursor: pointer;" onclick="this.parentNode.parentNode.nextElementSibling.style.display = \'block\'; this.parentNode.parentNode.nextElementSibling.style.height = \'auto\'; this.parentNode.style.display = \'none\';">read&nbsp;more&nbsp;&rarr;</a></span>';
+    //});
+
+    //var makeLinkElements = document.querySelectorAll('makeLink');
+    //Array.prototype.forEach.call(makeLinkElements, function (element, i) {
+    //    var baseLink = element.innerHTML;
+    //    var href = '<a href="/' + baseLink + '.html">' + baseLink + '</a>';
+    //    element.innerHTML = href;
+    //});
+
+    //var linkUrlElements = document.querySelectorAll('linkUrl');
+    //Array.prototype.forEach.call(linkUrlElements, function (element, i) {
+    //    console.log("Found linkUrl", element);
+    //    if (element.attributes["link"] && element.attributes["text"]) {
+    //        var href = '<a href="' + element.attributes["link"].nodeValue + '">' + element.attributes["text"].nodeValue + '</a>';
+    //        element.innerHTML = href;
+    //        console.log("Set to ", href);
+    //    }
+    //    else if (element.attributes["text"]) {
+    //        var href = '<a href="/' + element.attributes["text"].nodeValue + '.html">' + element.attributes["text"].nodeValue + '</a>';
+    //        element.innerHTML = href;
+    //        console.log("Set to ", href);
+    //    }
+    //});
+
+    var createHref4 = function(prefix, link, suffix, text) {
+        return '<a href="' + prefix + link + suffix + '">' + text + '</a>';
+    }
+
+    var createHref2 = function(link, text) {
+        return createHref4("", link, "", text);
+    }
+
+    var createHref1 = function(text) {
+        return createHref4("/", text, ".html", text);
+    }
+
+    var linkUrlElements = document.querySelectorAll('makeLink');
+    Array.prototype.forEach.call(linkUrlElements, function (element, i) {
+        console.log("Found makeLink", element);
+        if (element.attributes["link"]) {
+            element.innerHTML = createHref2(element.attributes["link"].nodeValue, element.innerHTML);
+            console.log("Set to ", element.innerHTML);
+        }
+        else {
+            element.innerHTML = createHref1(element.innerHTML);
+            console.log("Set to ", element.innerHTML);
+        }
+    });
+
+    var linkUrlElements = document.querySelectorAll('makeLinkElementType');
+    Array.prototype.forEach.call(linkUrlElements, function (element, i) {
+        console.log("Found makeLinkElementType", element);
+        //if (element.attributes["link"]) {
+        //    element.innerHTML = createHref2(element.attributes["link"].nodeValue, element.innerHTML);
+        //    console.log("Set to ", element.innerHTML);
+        //}
+        //else {
+            element.innerHTML = createHref4("/", element.innerHTML, ".html", element.innerHTML + "&lt;ElementType&gt;");
+            console.log("Set to ", element.innerHTML);
+        //}
+    });
+</script>

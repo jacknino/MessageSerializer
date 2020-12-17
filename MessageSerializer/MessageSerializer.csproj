@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9DADB61D-A4A5-4004-B6E6-31D4775F156E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MessageSerializer</RootNamespace>
+    <AssemblyName>MessageSerializer</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="ArrayOps.cs" />
+    <Compile Include="CalculatedAuthenticationAttribute.cs" />
+    <Compile Include="CalculatedFieldAttribute.cs" />
+    <Compile Include="CalculatedFieldInfo.cs" />
+    <Compile Include="CalculatedFieldResultAttribute.cs" />
+    <Compile Include="CalculatorAuthenticationBase.cs" />
+    <Compile Include="CalculatorAuthenticationCrc16.cs" />
+    <Compile Include="CalculatorAuthenticationCrc32.cs" />
+    <Compile Include="CalculatorAuthenticationCrcBase.cs" />
+    <Compile Include="CalculatorAuthenticationHashBase.cs" />
+    <Compile Include="CalculatorAuthenticationSha1.cs" />
+    <Compile Include="CalculatorAuthenticationSha256.cs" />
+    <Compile Include="CalculatorAuthenticationSha512.cs" />
+    <Compile Include="CalculatorBase.cs" />
+    <Compile Include="CalculatorLength.cs" />
+    <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="IPropertyRule.cs" />
+    <Compile Include="ITypeSelector.cs" />
+    <Compile Include="CalculatedLengthAttribute.cs" />
+    <Compile Include="MessageClassAttribute.cs" />
+    <Compile Include="MessageSerializedClassInfo.cs" />
+    <Compile Include="MessagePropertyAttribute.cs" />
+    <Compile Include="MessageSerializedPropertyInfo.cs" />
+    <Compile Include="MessageSerializerClassInfo.cs" />
+    <Compile Include="CodeGenerationBase.cs" />
+    <Compile Include="DeserializeResults.cs" />
+    <Compile Include="DeserializeStatus.cs" />
+    <Compile Include="IMessageSerializable.cs" />
+    <Compile Include="MessageSerializerEnums.cs" />
+    <Compile Include="NumericFunctions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyRuleAuthenticationField.cs" />
+    <Compile Include="PropertyRuleBcd.cs" />
+    <Compile Include="PropertyRuleDateTime.cs" />
+    <Compile Include="PropertyRuleEndianness.cs" />
+    <Compile Include="PropertyRuleLengthField.cs" />
+    <Compile Include="PropertyRuleLengths.cs" />
+    <Compile Include="PropertyRulePrepad.cs" />
+    <Compile Include="SerializationDefaults.cs" />
+    <Compile Include="Serializer.cs" />
+    <Compile Include="SerializerBase.cs" />
+    <Compile Include="SerializerClassGeneration.cs" />
+    <Compile Include="ToStringDecorationProperties.cs" />
+    <Compile Include="ToStringFormatProperties.cs" />
+    <Compile Include="TypeSelectorByteArray.cs" />
+    <Compile Include="TypeSelectorDateTime.cs" />
+    <Compile Include="TypeSelectorEnum.cs" />
+    <Compile Include="TypeSelectorNumeric.cs" />
+    <Compile Include="TypeSelectorNumericBcd.cs" />
+    <Compile Include="TypeSelectorSerializable.cs" />
+    <Compile Include="TypeSelectorSpecifiedClass.cs" />
+    <Compile Include="TypeSelectorString.cs" />
+    <Compile Include="TypeSerializerBase.cs" />
+    <Compile Include="TypeSerializerBcd.cs" />
+    <Compile Include="TypeSerializerByteArray.cs" />
+    <Compile Include="TypeSerializerDateTime.cs" />
+    <Compile Include="TypeSerializerEnum.cs" />
+    <Compile Include="TypeSerializerNumeric.cs" />
+    <Compile Include="TypeSerializerSerializableClass.cs" />
+    <Compile Include="TypeSerializerString.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

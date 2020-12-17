@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MessageSerializerClass xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.dorkyengineer.com/MessageSerializerClassInfo/">
+  <ClassInfo AssemblyName="MessageSerializerUnitTests.LongComplicatedMessage, MessageSerializerUnitTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" ClassFullName="MessageSerializerUnitTests.LongComplicatedMessage">
+    <MessageClassAttribute>
+      <DefaultExcludeProperty>false</DefaultExcludeProperty>
+      <PutInheritedPropertiesLast>false</PutInheritedPropertiesLast>
+    </MessageClassAttribute>
+    <PropertyInfoList>
+      <PropertyInfo Name="Address">
+        <MessagePropertyAttribute />
+      </PropertyInfo>
+      <PropertyInfo Name="Command">
+        <MessagePropertyAttribute />
+      </PropertyInfo>
+      <PropertyInfo Name="Length">
+        <MessagePropertyAttribute>
+          <MessageLengthType>RestOfMessage</MessageLengthType>
+        </MessagePropertyAttribute>
+      </PropertyInfo>
+      <PropertyInfo Name="BcdSomething">
+        <MessagePropertyAttribute />
+      </PropertyInfo>
+      <PropertyInfo Name="BcdDateTime">
+        <MessagePropertyAttribute />
+      </PropertyInfo>
+      <PropertyInfo Name="SomeListLength">
+        <MessagePropertyAttribute>
+          <BlobType>Length</BlobType>
+          <AssociatedBlobProperty>SomeList</AssociatedBlobProperty>
+        </MessagePropertyAttribute>
+      </PropertyInfo>
+      <PropertyInfo Name="SomeList">
+        <MessagePropertyAttribute>
+          <BlobType>Data</BlobType>
+          <AssociatedBlobProperty>SomeListLength</AssociatedBlobProperty>
+        </MessagePropertyAttribute>
+      </PropertyInfo>
+      <PropertyInfo Name="SomeStringLength">
+        <MessagePropertyAttribute>
+          <BlobType>Length</BlobType>
+          <AssociatedBlobProperty>SomeStringData</AssociatedBlobProperty>
+        </MessagePropertyAttribute>
+      </PropertyInfo>
+      <PropertyInfo Name="SomeStringData">
+        <MessagePropertyAttribute>
+          <BlobType>Data</BlobType>
+          <AssociatedBlobProperty>SomeStringLength</AssociatedBlobProperty>
+        </MessagePropertyAttribute>
+      </PropertyInfo>
+      <PropertyInfo Name="String3Fixed">
+        <MessagePropertyAttribute>
+          <Length>3</Length>
+        </MessagePropertyAttribute>
+      </PropertyInfo>
+      <PropertyInfo Name="String6Fixed">
+        <MessagePropertyAttribute>
+          <Length>6</Length>
+        </MessagePropertyAttribute>
+      </PropertyInfo>
+      <PropertyInfo Name="Meters">
+        <MessagePropertyAttribute />
+      </PropertyInfo>
+      <PropertyInfo Name="SomeSubClass">
+        <MessagePropertyAttribute />
+      </PropertyInfo>
+      <PropertyInfo Name="Crc">
+        <MessagePropertyAttribute />
+        <AuthenticationClassFullName>MessageSerializer.CalculatorAuthenticationCrc16</AuthenticationClassFullName>
+      </PropertyInfo>
+    </PropertyInfoList>
+  </ClassInfo>
+</MessageSerializerClass>

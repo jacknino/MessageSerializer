@@ -1,0 +1,20 @@
+<nav>
+    {% for section in site.data.navigation -%}
+      <h4>{{ section.title }}</h4>
+      <ul>
+          {% for item in section.pages %}
+          {% capture linkToUse %}/{{ item.name }}.html{% endcapture %}
+          {% if item.link %}
+          {% assign linkToUse = item.link %}
+          {% endif %}
+          <li>
+              <div {% if page.url == linkToUse %} class="highlight" {% endif %}>
+                  <a href="{{ linkToUse }}" {% if page.url == linkToUse %} class="kc" {% endif %}>
+                      {{ item.name }}
+                  </a>
+              </div>
+          </li>
+          {% endfor %}
+      </ul>
+    {% endfor %}
+</nav>

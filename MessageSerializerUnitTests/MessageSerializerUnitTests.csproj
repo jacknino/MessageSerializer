@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A23E4BC0-9ADB-4DDF-AEC8-60F6AEEF1A6F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MessageSerializerUnitTests</RootNamespace>
+    <AssemblyName>MessageSerializerUnitTests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="nunit.framework">
+      <HintPath>.\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="MessageUnitTestBase.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SetupMessageSerializerUnitTests.cs" />
+    <Compile Include="TestBcdNumerics.cs" />
+    <Compile Include="TestCalculatedVerification.cs" />
+    <Compile Include="TestCalculators.cs" />
+    <Compile Include="TestClassInfoXml.cs" />
+    <Compile Include="TestDateTime.cs" />
+    <Compile Include="TestEndianness.cs" />
+    <Compile Include="TestEndiannessRequiresReversal.cs" />
+    <Compile Include="TestEnums.cs" />
+    <Compile Include="TestLengths.cs" />
+    <Compile Include="TestLongComplicatedMessage.cs" />
+    <Compile Include="TestNumerics.cs" />
+    <Compile Include="TestSampleMessage.cs" />
+    <Compile Include="TestAuthenticationBase.cs" />
+    <Compile Include="TestAuthenticationCrcClasses.cs" />
+    <Compile Include="TestMessageWithNullTerminatedStringAndEnum.cs" />
+    <Compile Include="TestAuthenticationHashClasses.cs" />
+    <Compile Include="TestAuthentications.cs" />
+    <Compile Include="TestSampleMessageIntroduction.cs" />
+    <Compile Include="TestSampleTypeSerializerThreeByteNumeric.cs" />
+    <Compile Include="TestStrings.cs" />
+    <Compile Include="TestToString.cs" />
+    <Compile Include="TestTypeSerializerBase.cs" />
+    <Compile Include="TestTypeSerializerBcd.cs" />
+    <Compile Include="TestTypeSerializerByteArray.cs" />
+    <Compile Include="TestTypeSerializerDateTime.cs" />
+    <Compile Include="TestTypeSerializerEnum.cs" />
+    <Compile Include="TestTypeSerializerNumeric.cs" />
+    <Compile Include="TestTypeSerializerSerializableClass.cs" />
+    <Compile Include="TestTypeSerializerString.cs" />
+    <Compile Include="TestTypeSerializerUserSpecified.cs" />
+    <Compile Include="TestVariableLengthBlobs.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MessageSerializer\MessageSerializer.csproj">
+      <Project>{9DADB61D-A4A5-4004-B6E6-31D4775F156E}</Project>
+      <Name>MessageSerializer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="LongComplicatedMessage.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SampleMessage.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SimpleXmlTestClass.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
