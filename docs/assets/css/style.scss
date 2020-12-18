@@ -22,6 +22,14 @@
 
 }
 
+// Override the .inner that limits the width to 640px 
+// as that cuts off a lot of code snippets and doesn't
+// leave a whole lot of space for the navigation menu
+// and the content
+.inner {
+    max-width: none;
+}
+
 .menu-content-table {
     table-layout: fixed;
     width: 100%;
