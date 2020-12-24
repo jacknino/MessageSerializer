@@ -6,12 +6,10 @@ namespace MessageSerializerUnitTests
     public class TestAuthenticationsMessageCrc32 : IMessageSerializable
     {
         public byte Byte { get; set; }
-        //[MessageProperty(ExcludeFromAuthentication = true)]
         [CalculatedAuthentication(Exclude = true)]
         public short Short { get; set; }
         public ushort UShort { get; set; }
 
-        //[MessageProperty(AuthenticationClass = typeof(AuthenticationCrc32))]
         [CalculatedAuthenticationResult(typeof(CalculatorAuthenticationCrc32))]
         public uint Crc { get; set; }
     }
@@ -19,13 +17,11 @@ namespace MessageSerializerUnitTests
     public class TestAuthenticationsMessageSha256 : IMessageSerializable
     {
         public byte Byte { get; set; }
-        //[MessageProperty(ExcludeFromAuthentication = true)]
         [CalculatedAuthentication(Exclude = true)]
         public short Short { get; set; }
         public ushort UShort { get; set; }
 
         // https://emn178.github.io/online-tools/sha256.html
-        //[MessageProperty(AuthenticationClass = typeof(AuthenticationSha256), Length = 32)]
         [MessageProperty(Length = 32)]
         [CalculatedAuthenticationResult(typeof(CalculatorAuthenticationSha256))]
         public byte[] Sha { get; set; }
@@ -34,7 +30,6 @@ namespace MessageSerializerUnitTests
     public class TestAuthenticationsMessageSha256WithLength : IMessageSerializable
     {
         public byte Byte { get; set; }
-        //[MessageProperty(ExcludeFromAuthentication = true)]
         [CalculatedAuthentication(Exclude = true)]
         public short Short { get; set; }
         public ushort UShort { get; set; }
@@ -42,7 +37,6 @@ namespace MessageSerializerUnitTests
         // What we are testing here is because Sha is a fixed length we should be able to include the length in the authentication calculation
         // But that ends up being a special case compared to other fields
         public byte Length { get; set; }
-        //[MessageProperty(AuthenticationClass = typeof(AuthenticationSha256), Length = 32)]//, ExcludeFromLength = false)]
         [MessageProperty(Length = 32)]
         [CalculatedLength(Exclude = false)]
         [CalculatedAuthenticationResult(typeof(CalculatorAuthenticationSha256))]

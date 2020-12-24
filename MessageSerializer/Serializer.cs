@@ -125,7 +125,7 @@ namespace MessageSerializer
             LoadSerializableClassesFromAssembly(assembly, false);
         }
 
-        public void LoadSerializableClassesFromAssembly(Assembly assembly, bool replaceIfExists)
+        public void LoadSerializableClassesFromAssembly(Assembly assembly, bool replaceIfExists, SerializationDefaults serializationDefaults = null)
         {
             foreach (Type type in assembly.GetTypes())
             {
@@ -133,7 +133,7 @@ namespace MessageSerializer
                 {
                     if (interfaceType == typeof(IMessageSerializable))
                     {
-                        GetClassInfo(type, replaceIfExists);
+                        GetClassInfo(type, replaceIfExists, serializationDefaults);
                         break;
                     }
                 }

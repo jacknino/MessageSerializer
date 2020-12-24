@@ -1,5 +1,9 @@
 # Introduction
 
+NOTE: The documentation is a work in progress and is being integrated into Google Pages here: 
+[https://jacknino.github.io/MessageSerializer/](https://jacknino.github.io/MessageSerializer/):
+
+
 The MessageSerializer is intended to allow the user to define a class in C# that corresponds 
 to a message that will actually be sent/received as a string of bytes.  The MessageSerializer
 is designed to do the conversion from the string of bytes into the class and vice-versa.

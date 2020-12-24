@@ -32,10 +32,13 @@
   pages:
     - name: Introduction
       link: PropertyRuleIntroduction.html
-    - name: Authentication Field
-      link: /PropertyRuleAuthenticationField.html
-    - name: BCD
-      link: /PropertyRuleBcd.html
+    - name: PropertyRuleAuthenticationField
+    - name: PropertyRuleBcd
+    - name: PropertyRuleDateTime
+    - name: PropertyRuleEndianness
+    - name: PropertyRuleLengthField
+    - name: PropertyRuleLengths
+    - name: PropertyRulePrepad
     - name: User Defined
       link: /PropertyRuleUserDefined.html
 - title: Type Selectors

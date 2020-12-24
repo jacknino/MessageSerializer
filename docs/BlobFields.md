@@ -7,7 +7,7 @@ title: Blob Fields
 Often there will be more than one field in a message that is variable length.  For those fields, there is usually a length field
 that is specifically for one particular variable length field.  These length/value pairs in the MessageSerializer are referred to as Blob Fields.
 
-They can be defined by using the `BlobType` property of the `MessageProperty` attribute as shown:
+They can be defined by using the `BlobType` property of the {{ site.data.linkVariables["MessageProperty"] }} attribute as shown:
 
 ```
 [MessagedProperty(BlobType = BlobTypes.Length)]

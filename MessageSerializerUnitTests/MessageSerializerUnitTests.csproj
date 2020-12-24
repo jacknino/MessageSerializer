@@ -68,6 +68,7 @@
     <Compile Include="TestAuthenticationHashClasses.cs" />
     <Compile Include="TestAuthentications.cs" />
     <Compile Include="TestSampleMessageIntroduction.cs" />
+    <Compile Include="TestSamplePropertyRule.cs" />
     <Compile Include="TestSampleTypeSerializerThreeByteNumeric.cs" />
     <Compile Include="TestStrings.cs" />
     <Compile Include="TestToString.cs" />

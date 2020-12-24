@@ -12,40 +12,50 @@ namespace MessageSerializerUnitTests
         protected delegate void VerifySerializedBytesDelegate(byte[] serializedBytes, T objectSerialized);
         protected delegate void VerifyDeserializedObjectDelegate(T deserializedObject, byte[] originalBytes, T originalObject);
 
-        protected MessageUnitTestBase()
+        protected bool _includeFileTesting;
+
+        protected MessageUnitTestBase(bool includeFileTesting = true)
         {
+            _includeFileTesting = includeFileTesting;
         }
 
-        protected byte[] TestSerialize(T objectToSerialize, VerifySerializedBytesDelegate verifyFunction)
+        protected byte[] TestSerialize(T objectToSerialize, VerifySerializedBytesDelegate verifyFunction, SerializationDefaults serializationDefaults = null)
         {
             // We want to test loading by attributes and by file
-            Serializer.Instance.GetClassInfo(typeof(T), true);
+            Serializer.Instance.GetClassInfo(typeof(T), true, serializationDefaults);
             byte[] serializedBytes = Serializer.Instance.Serialize(objectToSerialize);
             verifyFunction(serializedBytes, objectToSerialize);
 
-            ConfigMessageSerializerClass.WriteDefaultToFile(typeof(T));
-            ConfigMessageSerializerClass configMessageSerializerClass = ConfigMessageSerializerClass.ReadFromFile(typeof(T));
-            List<ConfigMessageSerializerClass> classList = new List<ConfigMessageSerializerClass>() { configMessageSerializerClass };
-            Serializer.Instance.GetClassInfo(typeof(T), classList, true);
-            byte[] serializedBytesConfig = Serializer.Instance.Serialize(objectToSerialize);
-            verifyFunction(serializedBytesConfig, objectToSerialize);
+            if (_includeFileTesting)
+            {
+                ConfigMessageSerializerClass.WriteDefaultToFile(typeof(T));
+                ConfigMessageSerializerClass configMessageSerializerClass = ConfigMessageSerializerClass.ReadFromFile(typeof(T));
+                List<ConfigMessageSerializerClass> classList = new List<ConfigMessageSerializerClass>() {configMessageSerializerClass};
+                Serializer.Instance.GetClassInfo(typeof(T), classList, true, serializationDefaults);
+                byte[] serializedBytesConfig = Serializer.Instance.Serialize(objectToSerialize);
+                verifyFunction(serializedBytesConfig, objectToSerialize);
 
-            Assert.That(serializedBytes.SequenceEqual(serializedBytesConfig), Is.True, "BytesEqual");
+                Assert.That(serializedBytes.SequenceEqual(serializedBytesConfig), Is.True, "BytesEqual");
+            }
+
             return serializedBytes;
         }
 
-        protected T TestDeserialize(byte[] bytesToDeserialize, T originalObject, VerifyDeserializedObjectDelegate verifyFunction)
+        protected T TestDeserialize(byte[] bytesToDeserialize, T originalObject, VerifyDeserializedObjectDelegate verifyFunction, SerializationDefaults serializationDefaults = null)
         {
-            Serializer.Instance.GetClassInfo(typeof(T), true);
+            Serializer.Instance.GetClassInfo(typeof(T), true, serializationDefaults);
             T deserializedObject = Serializer.Instance.Deserialize<T>(bytesToDeserialize);
             verifyFunction(deserializedObject, bytesToDeserialize, originalObject);
 
-            ConfigMessageSerializerClass.WriteDefaultToFile(typeof(T));
-            ConfigMessageSerializerClass configMessageSerializerClass = ConfigMessageSerializerClass.ReadFromFile(typeof(T));
-            List<ConfigMessageSerializerClass> classList = new List<ConfigMessageSerializerClass>() { configMessageSerializerClass };
-            Serializer.Instance.GetClassInfo(typeof(T), classList, true);
-            T deserializedObjectConfig = Serializer.Instance.Deserialize<T>(bytesToDeserialize);
-            verifyFunction(deserializedObjectConfig, bytesToDeserialize, originalObject);
+            if (_includeFileTesting)
+            {
+                ConfigMessageSerializerClass.WriteDefaultToFile(typeof(T));
+                ConfigMessageSerializerClass configMessageSerializerClass = ConfigMessageSerializerClass.ReadFromFile(typeof(T));
+                List<ConfigMessageSerializerClass> classList = new List<ConfigMessageSerializerClass>() {configMessageSerializerClass};
+                Serializer.Instance.GetClassInfo(typeof(T), classList, true, serializationDefaults);
+                T deserializedObjectConfig = Serializer.Instance.Deserialize<T>(bytesToDeserialize);
+                verifyFunction(deserializedObjectConfig, bytesToDeserialize, originalObject);
+            }
 
             return deserializedObject;
         }
