@@ -1,6 +1,6 @@
 # Introduction
 
-NOTE: The documentation is a work in progress and is being integrated into Google Pages here: 
+NOTE: The documentation is a work in progress and is being integrated into GitHub Pages here: 
 [https://jacknino.github.io/MessageSerializer/](https://jacknino.github.io/MessageSerializer/):
 
 
