@@ -7,6 +7,11 @@ title: Introduction
 ---
 # Introduction
 
+**NOTE: This documentation is a work in progress and is being continually worked on to try
+and make using the MessageSerializer as easy as possible. I also apologize for various dead links
+and things of that nature that I have not had time to get to yet as well.  There is also a large
+TODO list to make the MessageSerializer even more flexible.**
+
 There are a wide variety of protocols in the world that follow a structure in a form similar to:
 
 ```
@@ -99,7 +104,7 @@ You can see that the MessageSerializer automatically filled in both the Length a
 In fact, if you looked at the sampleMessage variable after the serialization you would see that the Length and Crc values now had the correct value as well.
 
 That was all wonderfully easy but you can probably come up with all sorts of questions, such as:
-* Those results seem to be using little-endian for numeric values but what if it is supposed to be little-endian?
+* Those results seem to be using little-endian for numeric values but what if it is supposed to be big-endian?
 * What if the Crc is supposed to use a different CRC calculation or is supposed to be a hash?
 * What if the DeviceName field is supposed to take up exactly 10 bytes instead of however many the DeviceName string has?
 * What if the Length field is supposed to be some weird 3-byte length field?
@@ -113,7 +118,7 @@ happens to require handling that isn't built in, almost everything can be overri
 In the following pages, the default functionality, how to change the default functionality and how to add your own functionality
 will all be covered, along with examples that will hopefully help you make the MessageSerializer work with your protocol.
 
-In the future it is hoped that there will be a library of definitions for various protocols so that not only does the work need
+In the future it is hoped that there will be a library of definitions for various protocols so that not only does the work not need
 to be duplicated by later users but will also provide a wide range of examples for different complicated scenarios.
 
 Let me know if you have questions on how to handle a particular situation with your protocol.

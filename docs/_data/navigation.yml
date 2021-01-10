@@ -9,6 +9,9 @@
     - name: Serialization
     - name: Deserialization
     - name: ToString
+    - name: Serializer
+    - name: ToStringFormatProperties
+    - name: ToStringDecorationProperties
 - title: Type Handling
   pages:
     - name: Numeric
