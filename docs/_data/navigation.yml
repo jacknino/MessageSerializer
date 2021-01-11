@@ -2,16 +2,13 @@
   pages:
     - name: Introduction
       link: /
-    - name: About
-      link: /about.html
+#    - name: About
+#      link: /about.html
 - title: General Overview
   pages:
     - name: Serialization
     - name: Deserialization
     - name: ToString
-    - name: Serializer
-    - name: ToStringFormatProperties
-    - name: ToStringDecorationProperties
 - title: Type Handling
   pages:
     - name: Numeric
@@ -80,13 +77,17 @@
       link: /CalculatedFieldsAuthentication.html
     - name: User Defined
       link: /CalculatedFieldsUserDefined.html
-- title: Other Classes
+- title: Classes
   pages:
+    - name: Serializer
+    - name: ToStringFormatProperties
+    - name: ToStringDecorationProperties
     - name: MessageSerializedPropertyInfo
     - name: ArrayOps
     - name: SerializerBase
-- title: ToString
+- title: Other
   pages:
-
+    - name: TODO List
+      link: /ToDoList.html
 
  

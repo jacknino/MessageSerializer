@@ -28,7 +28,7 @@ baseurl: "/MessageSerializer" # the subpath of your site, e.g. /blog
 url: "https://jacknino.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_username: jacknino
 
-repository: jnino/jnino.github.io
+repository: jacknino/MessageSerializer
 
 # Build settings
 # theme: minima

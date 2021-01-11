@@ -7,6 +7,20 @@ namespace MessageSerializerUnitTests
     [TestFixture]
     public class TestSampleTypeSerializerThreeByteNumeric : TestTypeSerializerBase
     {
+        public class TypeSelectorThreeByteNumeric : ITypeSelector
+        {
+            public Type CheckType(MessageSerializedPropertyInfo propertyInfo)
+            {
+                if (propertyInfo.PropertyInfo.PropertyType == typeof(int)
+                    && propertyInfo.PropertyInfo.Name.StartsWith("ThreeByte"))
+                {
+                    return typeof(TypeSerializerThreeByteNumeric);
+                }
+
+                return null;
+            }
+        }
+
         public class TypeSerializerThreeByteNumeric : TypeSerializerBase<int>
         {
             public TypeSerializerThreeByteNumeric(MessageSerializedPropertyInfo propertyInfo)
@@ -49,13 +63,18 @@ namespace MessageSerializerUnitTests
 
             [MessageProperty(TypeSerializerClass = typeof(TypeSerializerThreeByteNumeric), Endianness = Endiannesses.Big)]
             public int Big { get; set; }
+
+            public int ThreeByteInt { get; set; }
         }
 
         protected MessageSerializedClassInfo _classInfo;
 
         public TestSampleTypeSerializerThreeByteNumeric()
         {
-            _classInfo = Serializer.Instance.GetClassInfo(typeof(TestClass));
+            var serializationDefaults = new SerializationDefaults();
+            // We need to put our TypeSelector first, otherwise a property that matches will get matched by TypeSelectorNumeric first
+            serializationDefaults.TypeSelectors.Insert(0, new TypeSelectorThreeByteNumeric());
+            _classInfo = Serializer.Instance.GetClassInfo(typeof(TestClass), serializationDefaults);
         }
 
         protected void TestField(MessageSerializedClassInfo classInfo, string propertyName, int valueToUse, byte[] expectedArray)
@@ -66,12 +85,36 @@ namespace MessageSerializerUnitTests
         }
 
         [Test]
-        public void Test()
+        public void TestIndividualProperties()
         {
             bool systemIsLittleEndian = ArrayOps.SystemEndiannessIsLittleEndian();
             TestField(_classInfo, "System", 3, systemIsLittleEndian ? new byte[] { 0x03, 0x00, 0x00 } : new byte[] { 0x00, 0x00, 0x03 });
             TestField(_classInfo, "Little", 0x123456, new byte[] { 0x56, 0x34, 0x12 });
             TestField(_classInfo, "Big", 0x123456, new byte[] { 0x12, 0x34, 0x56 });
+            TestField(_classInfo, "ThreeByteInt", 0x987654, new byte[] { 0x54, 0x76, 0x98 });
+        }
+
+        [Test]
+        public void TestFullClass()
+        {
+            var testClass = new TestClass();
+            testClass.System = 3;
+            testClass.Little = 0x123456;
+            testClass.Big = 0x123456;
+            testClass.ThreeByteInt = 0x987654;
+
+            byte[] serialized = Serializer.Instance.Serialize(testClass);
+            Assert.That(serialized.Length, Is.EqualTo(12), "Length");
+            Assert.That(ArrayOps.GetSubArray(serialized, 0, 3), Is.EqualTo(new byte[] { 0x03, 0x00, 0x00 }), "System");
+            Assert.That(ArrayOps.GetSubArray(serialized, 3, 3), Is.EqualTo(new byte[] { 0x56, 0x34, 0x12 }), "Little");
+            Assert.That(ArrayOps.GetSubArray(serialized, 6, 3), Is.EqualTo(new byte[] { 0x12, 0x34, 0x56 }), "Big");
+            Assert.That(ArrayOps.GetSubArray(serialized, 9, 3), Is.EqualTo(new byte[] { 0x54, 0x76, 0x98 }), "ThreeByteInt");
+
+            TestClass deserialized = Serializer.Instance.Deserialize<TestClass>(serialized);
+            Assert.That(testClass.System, Is.EqualTo(deserialized.System), "System");
+            Assert.That(testClass.Little, Is.EqualTo(deserialized.Little), "Little");
+            Assert.That(testClass.Big, Is.EqualTo(deserialized.Big), "Big");
+            Assert.That(testClass.ThreeByteInt, Is.EqualTo(deserialized.ThreeByteInt), "ThreeByteInt");
         }
     }
 }
