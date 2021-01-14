@@ -48,5 +48,5 @@ namespace MessageSerializer
 
             return propertyRules;
         }
-}
+    }
 }
