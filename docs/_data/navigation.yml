@@ -21,13 +21,16 @@
     - name: Classes
     - name: Lists
     - name: Blob Fields
+      link: /BlobFields.html
 - title: Defaults
   pages:
     - name: SerializationDefaults
 - title: Attributes
   pages:
-    - name: ClassProperty
+    - name: MessageClass
+      link: /MessageClassAttribute.html
     - name: MessageProperty
+      link: /MessagePropertyAttribute.html
 - title: Property Rules
   pages:
     - name: Introduction

@@ -14,8 +14,8 @@ There are three types of Endianness the MessageSerializer supports: `Little`, `B
 `System` means to use whatever the system the MessageSerializer is running on.
 
 When determining what Endianness to use for a field in a message the following priority is used:
-* If specified, the `Endianness` from the {{ site.data.linkVariables["MessageProperty"] }} attribute on the property for the field in your class.
-* If specified, the `Endianness` from the {{ site.data.linkVariables["MessageClass"] }} attribute on your class.
+* If specified, the `Endianness` from the {{ site.data.linkVariables["MessagePropertyAttribute"] }} on the property for the field in your class.
+* If specified, the `Endianness` from the {{ site.data.linkVariables["MessageClassAttribute"] }} on your class.
 * The `Endianness` from the `SerializationDefaults`
 
 Default: `System`

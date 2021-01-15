@@ -16,7 +16,7 @@ public int SomeBcdField { get; set; }
 ```
 
 However, the <makeLink>PropertyRuleBcd</makeLink> is designed to check if a property name starts with `Bcd` and if it does and IsBcd has not been 
-explicitly set by a {{ site.data.linkVariables["MessageProperty"] }} attribute on the property, then <makeLink>PropertyRuleBcd</makeLink> will set IsBcd to true.  This means that
+explicitly set by a {{ site.data.linkVariables["MessagePropertyAttribute"] }} on the property, then <makeLink>PropertyRuleBcd</makeLink> will set IsBcd to true.  This means that
 all you need to do to have a BCD field is just make sure the name of the property starts with `Bcd` (the case of the Bcd doesn't matter).
 
 ```csharp

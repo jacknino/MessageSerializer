@@ -8,7 +8,7 @@ To define your own TypeSerializers you can either inherit from `TypeSerializerBa
 This gives you a large amount of flexibility for when you have a protocol that has a non-standard way of outputting some values.
 
 If you do create your own TypeSerializer, in order to use it you have two options:
-* Set the `TypeSerializerClass` property of the {{ site.data.linkVariables["MessageProperty"] }} attribute of the property
+* Set the `TypeSerializerClass` property of the {{ site.data.linkVariables["MessagePropertyAttribute"] }} of the property
 you want to use it on to the `Type` of your TypeSerializer
 * Create your own {{ site.data.linkVariables["TypeSelector"] }} that checks for some condition appropriate to your property and then returns your TypeSelector.
 

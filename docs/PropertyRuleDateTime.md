@@ -4,8 +4,8 @@ title: PropertyRuleDateTime
 ---
 ## {{ page.title }}
 
-The `{{ page.title }}` {{ site.data.linkVariables["PropertyRule"] }} sets various defaults on the {{ site.data.linkVariables["MessageProperty"] }}
-attribute for properties with a type of `DateTime`:
+The `{{ page.title }}` {{ site.data.linkVariables["PropertyRule"] }} sets various defaults on the {{ site.data.linkVariables["MessagePropertyAttribute"] }}
+for properties with a type of `DateTime`:
 
 * If `IsBcd` had not been explicitly specified it is set to `true`.
 * If `Format` has not been explicitly specified it is set to `"MMddyyyyHHmmss"`.

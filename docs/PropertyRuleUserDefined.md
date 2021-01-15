@@ -32,7 +32,7 @@ See the information about the parameters to the function to determine what you m
 This example assumes a protocol where most messages have a field at the end of the message that is intended to store the SHA-256 result of all the other bytes in the message.
 The {{ site.data.linkVariables["PropertyRule"] }} being created will set up any property named "Hash" to be the <makeLink>CalculatedAuthenticationResult</makeLink>
 property and will use <makeLink>CalculatorAuthenticationSha256</makeLink> as the `Calculator`.  Also, since it is known that the length of the SHA-256 result will be 32 bytes
-the PropertyRule will also set the `Length` property of the {{ site.data.linkVariables["MessageProperty"] }} attribute to 32 if it hasn't already been set to something.
+the PropertyRule will also set the `Length` property of the {{ site.data.linkVariables["MessagePropertyAttribute"] }} to 32 if it hasn't already been set to something.
 This makes it possible for the `Hash` property to be used in <makeLink>CalculatedLength</makeLink> calculations.
 
 So to start we need to make our `PropertyRule`:
@@ -59,7 +59,7 @@ The class is pretty straightforward:
 * If a property is passed to it that doesn't already have a <makeLink>CalculatedAuthentication</makeLink> or <makeLink>CalculatedAuthenticationResult</makeLink> attribute
 and the property is named "Hash" (case-insensitive), then a <makeLink>CalculatedAuthenticationResult</makeLink> attribute with the `Calculator` set to `CalculatorAuthenticationSha256`
 will be added to the {{ site.data.linkVariables["MessageSerializedPropertyInfo"] }}.
-* Additionally, if the above conditions are met and the `Length` property of the {{ site.data.linkVariables["MessageProperty"] }} attribute hasn't explicitly been set to something
+* Additionally, if the above conditions are met and the `Length` property of the {{ site.data.linkVariables["MessagePropertyAttribute"] }} hasn't explicitly been set to something
 then the `Length` will be set to 32.
 
 Now we need to actually use this `PropertyRule` somehow.  First we need to create a class that is expected to actually use the rule.  We can make a simple test class:
