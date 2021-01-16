@@ -15,7 +15,7 @@ namespace MessageSerializer
         // The field should not be more than _maxLength long (defaults to -1, meaning no limit)
         // _minimizeVariableLength is mainly for numeric fields.  If a numeric field is variable
         // length you could get a value like 0x00000012.  That value only needs one byte to be
-        // represented but will take up by default.  If _minimizeVariableLength is set it will
+        // represented but will take up 4 by default.  If _minimizeVariableLength is set it will
         // take up the minimum bytes necessary as defined by _minLength
         protected int _length;
         protected bool _variableLength;
