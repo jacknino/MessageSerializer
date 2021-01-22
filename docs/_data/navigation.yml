@@ -72,8 +72,8 @@
       link: /TypeSerializerUserDefined.html
 - title: Calculated Fields
   pages:
-    - name: General
-      link: /CalculatedFieldsGeneral.html
+    - name: Introduction
+      link: /CalculatedFieldsIntroduction.html
     - name: Length
       link: /CalculatedFieldsLength.html
     - name: Authentication
