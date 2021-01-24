@@ -61,6 +61,9 @@
     <Compile Include="TestLengths.cs" />
     <Compile Include="TestLongComplicatedMessage.cs" />
     <Compile Include="TestNumerics.cs" />
+    <Compile Include="TestSampleCalculatedFieldsAuthentication.cs" />
+    <Compile Include="TestSampleCalculatedFieldsLength.cs" />
+    <Compile Include="TestSampleCalculatedFieldsUserDefined.cs" />
     <Compile Include="TestSampleMessage.cs" />
     <Compile Include="TestAuthenticationBase.cs" />
     <Compile Include="TestAuthenticationCrcClasses.cs" />

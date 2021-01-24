@@ -19,19 +19,20 @@ namespace MessageSerializerUnitTests
             _includeFileTesting = includeFileTesting;
         }
 
-        protected byte[] TestSerialize(T objectToSerialize, VerifySerializedBytesDelegate verifyFunction, SerializationDefaults serializationDefaults = null)
+        protected byte[] TestSerialize<TClassType>(TClassType objectToSerialize, VerifySerializedBytesDelegate verifyFunction, SerializationDefaults serializationDefaults = null) 
+            where TClassType : class, T
         {
             // We want to test loading by attributes and by file
-            Serializer.Instance.GetClassInfo(typeof(T), true, serializationDefaults);
+            Serializer.Instance.GetClassInfo(typeof(TClassType), true, serializationDefaults);
             byte[] serializedBytes = Serializer.Instance.Serialize(objectToSerialize);
             verifyFunction(serializedBytes, objectToSerialize);
 
             if (_includeFileTesting)
             {
-                ConfigMessageSerializerClass.WriteDefaultToFile(typeof(T));
-                ConfigMessageSerializerClass configMessageSerializerClass = ConfigMessageSerializerClass.ReadFromFile(typeof(T));
+                ConfigMessageSerializerClass.WriteDefaultToFile(typeof(TClassType));
+                ConfigMessageSerializerClass configMessageSerializerClass = ConfigMessageSerializerClass.ReadFromFile(typeof(TClassType));
                 List<ConfigMessageSerializerClass> classList = new List<ConfigMessageSerializerClass>() {configMessageSerializerClass};
-                Serializer.Instance.GetClassInfo(typeof(T), classList, true, serializationDefaults);
+                Serializer.Instance.GetClassInfo(typeof(TClassType), classList, true, serializationDefaults);
                 byte[] serializedBytesConfig = Serializer.Instance.Serialize(objectToSerialize);
                 verifyFunction(serializedBytesConfig, objectToSerialize);
 
@@ -41,19 +42,20 @@ namespace MessageSerializerUnitTests
             return serializedBytes;
         }
 
-        protected T TestDeserialize(byte[] bytesToDeserialize, T originalObject, VerifyDeserializedObjectDelegate verifyFunction, SerializationDefaults serializationDefaults = null)
+        protected TClassType TestDeserialize<TClassType>(byte[] bytesToDeserialize, TClassType originalObject, VerifyDeserializedObjectDelegate verifyFunction, SerializationDefaults serializationDefaults = null)
+            where TClassType : class, T
         {
-            Serializer.Instance.GetClassInfo(typeof(T), true, serializationDefaults);
-            T deserializedObject = Serializer.Instance.Deserialize<T>(bytesToDeserialize);
+            Serializer.Instance.GetClassInfo(typeof(TClassType), true, serializationDefaults);
+            TClassType deserializedObject = Serializer.Instance.Deserialize<TClassType>(bytesToDeserialize);
             verifyFunction(deserializedObject, bytesToDeserialize, originalObject);
 
             if (_includeFileTesting)
             {
-                ConfigMessageSerializerClass.WriteDefaultToFile(typeof(T));
-                ConfigMessageSerializerClass configMessageSerializerClass = ConfigMessageSerializerClass.ReadFromFile(typeof(T));
+                ConfigMessageSerializerClass.WriteDefaultToFile(typeof(TClassType));
+                ConfigMessageSerializerClass configMessageSerializerClass = ConfigMessageSerializerClass.ReadFromFile(typeof(TClassType));
                 List<ConfigMessageSerializerClass> classList = new List<ConfigMessageSerializerClass>() {configMessageSerializerClass};
-                Serializer.Instance.GetClassInfo(typeof(T), classList, true, serializationDefaults);
-                T deserializedObjectConfig = Serializer.Instance.Deserialize<T>(bytesToDeserialize);
+                Serializer.Instance.GetClassInfo(typeof(TClassType), classList, true, serializationDefaults);
+                TClassType deserializedObjectConfig = Serializer.Instance.Deserialize<TClassType>(bytesToDeserialize);
                 verifyFunction(deserializedObjectConfig, bytesToDeserialize, originalObject);
             }
 
