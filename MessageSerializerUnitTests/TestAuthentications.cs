@@ -96,7 +96,7 @@ namespace MessageSerializerUnitTests
                 // 7fbb10e796995e1d650e10377f997cb9ff52167889cfe6a73603f29e67bea797
                 byte[] expectedSha = new byte[] {0xe0, 0x09, 0x14, 0x5a, 0x9f, 0xbd, 0x48, 0x0d, 0x72, 0x2c, 0x47, 0x7d, 0x19, 0x18, 0x60, 0x6b, 0x46, 0xa5, 0xee, 0x5a, 0x1d, 0x19, 0x8d, 0x8d, 0x1a, 0x31, 0x75, 0x82, 0x4a, 0x93, 0x47, 0x4f};
                 byteIndex += CheckMultiByteArray(bytes, byteIndex, "Sha", expectedSha);
-                https://emn178.github.io/online-tools/sha256.html
+                //https://emn178.github.io/online-tools/sha256.html
                 Assert.That(serialized.Sha, Is.EqualTo(expectedSha), "ShaValue");
             });
 
@@ -131,7 +131,7 @@ namespace MessageSerializerUnitTests
                 byteIndex += CheckNumeric(bytes, byteIndex, "Length", serialized.Length);
                 byte[] expectedSha = new byte[] {0xf1, 0x2c, 0xc5, 0x9e, 0xc4, 0x00, 0x76, 0xc4, 0x87, 0xb0, 0x46, 0x3c, 0xaa, 0x7d, 0x2f, 0x6b, 0x14, 0x3f, 0x6b, 0x4e, 0x86, 0xaf, 0xfa, 0x8c, 0xe0, 0x92, 0x1b, 0x0e, 0xf2, 0xe5, 0x20, 0x97};
                 byteIndex += CheckMultiByteArray(bytes, byteIndex, "Sha", expectedSha);
-                https://emn178.github.io/online-tools/sha256.html
+                //https://emn178.github.io/online-tools/sha256.html
                 Assert.That(serialized.Sha, Is.EqualTo(expectedSha), "ShaValue");
             });
 
