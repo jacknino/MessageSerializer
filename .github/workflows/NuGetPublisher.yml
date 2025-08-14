@@ -84,7 +84,7 @@ jobs:
 
   build-csharp:
     name: C# Build
-    runs-on: windows-latest
+    runs-on: windows-2019
     needs: [git-version, setup-flags]
     
     # defaults:
