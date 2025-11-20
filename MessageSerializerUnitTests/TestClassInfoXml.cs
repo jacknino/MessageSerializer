@@ -164,7 +164,7 @@ namespace MessageSerializerUnitTests
         [Test]
         public void TestSimpleXmlTestClass()
         {
-            string filename = "SimpleXmlTestClass.xml";
+            string filename = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "SimpleXmlTestClass.xml");
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(ConfigMessageSerializerClass));
             FileStream fileStream = new FileStream(filename, FileMode.Open);
             ConfigMessageSerializerClass readMessageSerializerClassInfo = (ConfigMessageSerializerClass)xmlSerializer.Deserialize(fileStream);
