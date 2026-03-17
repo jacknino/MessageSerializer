@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFrameworks>net462;net8.0</TargetFrameworks>
+        <TargetFrameworks>net40;net8.0</TargetFrameworks>
 
       <Title>MessageSerializerUnitTests</Title>
       <Product>MessageSerializerUnitTests</Product>
@@ -16,7 +16,7 @@
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.3" />
     </ItemGroup>
     
-    <ItemGroup Condition="'$(TargetFramework)' == 'net462'">
+    <ItemGroup Condition="'$(TargetFramework)' == 'net40'">
         <PackageReference Include="NUnit" Version="3.12.0" />
         <!-- <PackageReference Include="NJsonSchema" Version="3.12.0" /> -->
         <!-- <PackageReference Include="Microsoft.Bcl" Version="1.1.10" /> -->
@@ -24,7 +24,7 @@
         <!-- <PackageReference Include="Microsoft.Bcl.Build" Version="1.0.21" /> -->
     </ItemGroup>
 
-    <ItemGroup Condition="'$(TargetFramework)' != 'net462'">
+    <ItemGroup Condition="'$(TargetFramework)' != 'net40'">
         <PackageReference Include="NUnit" Version="3.14.0" />
         <!-- <PackageReference Include="NJsonSchema" Version="10.8.0" /> -->
     </ItemGroup>

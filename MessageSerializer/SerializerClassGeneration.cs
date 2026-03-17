@@ -42,7 +42,8 @@ namespace MessageSerializer
 
         protected void AddReferences(CodeCompileUnit compileUnit, Type type)
         {
-            compileUnit.ReferencedAssemblies.Add("System.dll");
+            //compileUnit.ReferencedAssemblies.Add("System.dll");
+            compileUnit.ReferencedAssemblies.Add(typeof(object).Assembly.Location);
             compileUnit.ReferencedAssemblies.Add(Path.Combine(MyDirectory, "MessageSerializer.dll"));
             compileUnit.ReferencedAssemblies.Add(type.Module.FullyQualifiedName);
         }
