@@ -1,5 +1,6 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using System;
 using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
@@ -77,23 +78,66 @@ namespace MessageSerializer
             return CompileAssemblyFromSourceBatch(compilerParameters, new[] { source });
         }
 
+        IEnumerable<MetadataReference> GetRoslynRefs(IEnumerable<string> referencedAssemblies)
+        {
+            foreach (var referencedAssembly in referencedAssemblies)
+            {
+                string path = referencedAssembly;
+                if (!Path.IsPathRooted(path))
+                {
+                    // try already-loaded assembly by simple name
+                    Assembly assembly = AppDomain.CurrentDomain.GetAssemblies()
+                        .FirstOrDefault(a => a.GetName().Name.Equals(Path.GetFileNameWithoutExtension(referencedAssembly), StringComparison.OrdinalIgnoreCase));
+                    if (assembly != null)
+                    {
+                        path = assembly.Location;
+                    }
+                    else
+                    {
+                        // try load by name (Framework) or fallback to runtime dir
+                        try 
+                        { 
+                            path = Assembly.Load(new AssemblyName(Path.GetFileNameWithoutExtension(referencedAssembly))).Location; 
+                        } 
+                        catch 
+                        { 
+                        }
+
+                        if (!File.Exists(path))
+                            path = Path.Combine(System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeDirectory(), referencedAssembly);
+                    }
+                }
+
+                if (File.Exists(path)) 
+                    yield return MetadataReference.CreateFromFile(path);
+                else 
+                    throw new FileNotFoundException($"Reference not found: {referencedAssembly}");
+            }
+        }
+
         public CompilerResults CompileAssemblyFromSourceBatch(CompilerParameters compilerParameters, string[] sources)
         {
-            List<MetadataReference> references = new List<MetadataReference>();
-            foreach(string referencedAssembly in compilerParameters.ReferencedAssemblies)
-            {
-                references.Add(MetadataReference.CreateFromFile(referencedAssembly));
-            }
+            //List<MetadataReference> metadataReferences = new List<MetadataReference>();
+            //foreach (string referencedAssembly in compilerParameters.ReferencedAssemblies)
+            //{
+            //    metadataReferences.Add(MetadataReference.CreateFromFile(referencedAssembly));
+            //}
 
+            //List<MetadataReference> metadataReferences = GetRoslynRefs(compilerParameters.ReferencedAssemblies.Cast<string>()).ToList();
+            string[] trustedPlatformAssemblies = ((string)AppContext.GetData("TRUSTED_PLATFORM_ASSEMBLIES")).Split(Path.PathSeparator);
+            var metadataReferences = trustedPlatformAssemblies.Select(p => MetadataReference.CreateFromFile(p)).ToList();
             var compilation = CSharpCompilation
                 .Create(
                     Path.GetFileName(compilerParameters.OutputAssembly),
-                    syntaxTrees: sources.Select(x => CSharpSyntaxTree.ParseText(x)),
-                    references);
+                    sources.Select(x => CSharpSyntaxTree.ParseText(x)),
+                    metadataReferences,
+                    new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
             //.WithFrameworkReferences(TargetFramework);
 
             var compilerResults = new CompilerResults(new TempFileCollection());
             AppendDiagnostics(compilation.GetDiagnostics());
+
+            compilerParameters.GenerateInMemory = true;
 
             //using (FileStream stream = new FileStream(options.OutputAssembly, FileMode.Create, FileAccess.ReadWrite, FileShare.None))
             using (MemoryStream stream = new MemoryStream())

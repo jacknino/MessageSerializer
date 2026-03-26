@@ -36,8 +36,6 @@ namespace MessageSerializer
                 CompilerParameters compilerParameters = new CompilerParameters();
                 OptionallyWriteCodeAndDebugInfoToDisk(codeCompileUnit, codeOutputFilename, provider, compilerParameters);
 
-
-
                 // Think can do a couple things here:
                 // This page has a simple thing that uses Roslyn with a CodeDomProvider and an ICodeCompiler
                 // https://github.com/jaredpar/roslyn-codedom/blob/master/src/Roslyn.CodeDom/RoslynCodeDomProvider.cs
