@@ -56,7 +56,7 @@ jobs:
         run: |
             cd
             dir /s *.nupkg
-            dir MessageSerializer/bin/Release/MessageSerializer.${{ steps.version.outputs.version }}.nupkg
+            dir MessageSerializer\bin\Release\MessageSerializer.${{ steps.version.outputs.version }}.nupkg
         shell: cmd
 
       - name: Publish to GitHub Packages
