@@ -80,7 +80,7 @@ jobs:
           reporter: dotnet-trx
         
       - name: Create NuGet package
-        run: dotnet pack MessageSerializer/MessageSerializer.csproj --configuration Release --output nupkg -p:Version=${{ needs.build.outputs.version }} --no-build
+        run: dotnet pack MessageSerializer/MessageSerializer.csproj --configuration Release --output nupkg -p:Version=${{ steps.version.outputs.version }} --no-build
 
       - name: Publish to GitHub Packages
         if: |
