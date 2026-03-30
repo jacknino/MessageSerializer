@@ -23,12 +23,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v5
-        with:
-          dotnet-version: '8.0.x'
-
+      
       - name: Determine version
         id: version
         run: |
@@ -43,25 +38,19 @@ jobs:
       - name: Build
         run: dotnet build MessageSerialization.sln --configuration Release --no-restore -p:Version=${{ steps.version.outputs.version }}
 
-      # - name: Upload build artifacts
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: build-output
-      #     path: '**/bin/Release/**'
-      #     retention-days: 1
-
       - name: Run tests
         run: dotnet test MessageSerialization.sln --configuration Release --logger "trx;LogFileName=test-results.trx" --no-build
 
-      - name: Publish test results
-        uses: EnricoMi/publish-unit-test-result-action@v2
+      - name: Publish Test Results
+        uses: dorny/test-reporter@v1
         if: always()
         with:
-          files: '**/test-results.trx'
-          check_name: Unit Test Results
-
+          name: Unit Test Results
+          path: '**/*.trx'
+          reporter: dotnet-trx
+        
       - name: Create NuGet package
-        run: dotnet pack MessageSerializer/MessageSerializer.csproj --configuration Release --output nupkg -p:Version=${{ needs.build.outputs.version }} --no-build
+        run: dotnet pack MessageSerializer/MessageSerializer.csproj --configuration Release --output nupkg -p:Version=${{ steps.version.outputs.version }} --no-build
 
       - name: Publish to GitHub Packages
         if: |
