@@ -54,6 +54,7 @@ jobs:
 
       - name: Create NuGet package
         run: dir /s *.nupkg
+        shell: cmd
 
       - name: Publish to GitHub Packages
         if: |
