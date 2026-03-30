@@ -64,4 +64,4 @@ jobs:
         if: |
           (github.ref == 'refs/heads/main') || 
           (github.event_name == 'workflow_dispatch' && github.event.inputs.forcePublish == 'true')
-        run: dotnet nuget push --source ${{ env.NUGET_PUBLISH_URL }} --api-key ${{ secrets.GITHUB_TOKEN }} MessageSerializer/bin/Release/MessageSerializer.${{ steps.version.outputs.version }}.nupkg
+        run: dotnet nuget push --source ${{ env.NUGET_PUBLISH_URL }} --api-key ${{ secrets.GITHUB_TOKEN }} MessageSerializer/bin/Release/*.nupkg
