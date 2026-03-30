@@ -52,6 +52,9 @@ jobs:
       - name: Create NuGet package
         run: dotnet pack MessageSerializer/MessageSerializer.csproj --configuration Release --output nupkg -p:Version=${{ steps.version.outputs.version }} --no-build
 
+      - name: Create NuGet package
+        run: dir /s *.nupkg
+
       - name: Publish to GitHub Packages
         if: |
           (github.ref == 'refs/heads/main') || 
