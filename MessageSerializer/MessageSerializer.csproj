@@ -8,6 +8,7 @@
         <Title>MessageSerializer</Title>
         <Product>MessageSerializer</Product>
         <Description>Serialize and Deserialize messages to and from classes to byte arrays for message protocols. For more information see https://github.com/jacknino/MessageSerializer</Description>
+        <Copyright>Copyright (c) 2026 Jack Nino. All rights reserved.</Copyright>
     </PropertyGroup>
     
     <ItemGroup>

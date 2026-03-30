@@ -23,22 +23,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
-
-      # - name: Setup .NET
-        # uses: actions/setup-dotnet@v5
-        # with:
-          # dotnet-version: '8.0.x'
-          
-      # - name: Setup MSBuild
-      
-      # - name: Install DNF 4.8 packs
-        # shell: pwsh
-        # working-directory: "C:\\Program Files (x86)\\Microsoft Visual Studio\\Installer"
-        # run: |
-          # $InstallPath = "C:\Program Files\Microsoft Visual Studio\2022\Enterprise"
-          # $WorkLoads = '--add Microsoft.Net.Component.4.8.SDK --add Microsoft.Net.Component.4.8.TargetingPack --add Microsoft.Net.ComponentGroup.4.8.DeveloperTools'
-          # $Arguments = ('/c', "vs_installer.exe", 'modify', '--installPath', "`"$InstallPath`"", $WorkLoads, $WorkLoads, '--quiet', '--norestart', '--nocache')
-          # $process = Start-Process -FilePath cmd.exe -ArgumentList $Arguments -Wait -PassThru -WindowStyle Hidden
       
       - name: Determine version
         id: version
@@ -54,22 +38,8 @@ jobs:
       - name: Build
         run: dotnet build MessageSerialization.sln --configuration Release --no-restore -p:Version=${{ steps.version.outputs.version }}
 
-      # - name: Upload build artifacts
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: build-output
-      #     path: '**/bin/Release/**'
-      #     retention-days: 1
-
       - name: Run tests
         run: dotnet test MessageSerialization.sln --configuration Release --logger "trx;LogFileName=test-results.trx" --no-build
-
-      # - name: Publish test results
-        # uses: EnricoMi/publish-unit-test-result-action@v2
-        # if: always()
-        # with:
-          # files: '**/test-results.trx'
-          # check_name: Unit Test Results
 
       - name: Publish Test Results
         uses: dorny/test-reporter@v1
@@ -86,4 +56,4 @@ jobs:
         if: |
           (github.ref == 'refs/heads/main') || 
           (github.event_name == 'workflow_dispatch' && github.event.inputs.forcePublish == 'true')
-        run: dotnet nuget push "nupkg/*.nupkg" --source ${{ env.NUGET_PUBLISH_URL }} --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
+        run: dotnet nuget push "MessageSerializer/bin/Release/*.nupkg" --source ${{ env.NUGET_PUBLISH_URL }} --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
