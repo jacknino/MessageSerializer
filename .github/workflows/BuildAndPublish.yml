@@ -36,7 +36,8 @@ jobs:
       - name: Git Version
         id: version
         uses: codacy/git-version@2.5.4
-        release-branch: main
+        with:
+          release-branch: main
 
       - name: Restore dependencies
         run: dotnet restore MessageSerialization.sln
