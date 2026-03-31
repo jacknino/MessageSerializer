@@ -24,13 +24,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
       
-      - name: Determine version
+      # - name: Determine version
+        # id: version
+        # run: |
+          # $version = "${{ env.BASE_VERSION }}.${{ github.run_number }}"
+          # echo "version=$version" >> $env:GITHUB_OUTPUT
+          # Write-Host "Building version: $version"
+        # shell: pwsh
+
+      # https://github.com/marketplace/actions/git-version
+      - name: Git Version
         id: version
-        run: |
-          $version = "${{ env.BASE_VERSION }}.${{ github.run_number }}"
-          echo "version=$version" >> $env:GITHUB_OUTPUT
-          Write-Host "Building version: $version"
-        shell: pwsh
+        uses: codacy/git-version@2.5.4
+        release_branch: main
 
       - name: Restore dependencies
         run: dotnet restore MessageSerialization.sln
