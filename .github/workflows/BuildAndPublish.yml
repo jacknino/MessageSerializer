@@ -16,10 +16,26 @@ env:
     BASE_VERSION: 1.0
 
 jobs:
-  build:
-    runs-on: windows-latest
+  git-version:
+    runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.version.outputs.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0  
+
+      # https://github.com/marketplace/actions/git-version
+      - name: Git Version
+        id: version
+        uses: codacy/git-version@2.5.4
+
+  build:
+    runs-on: windows-latest
+    needs: [ git-version ]
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
@@ -33,17 +49,17 @@ jobs:
         # shell: pwsh
 
       # https://github.com/marketplace/actions/git-version
-      - name: Git Version
-        id: version
-        uses: codacy/git-version@2.5.4
-        with:
-          release-branch: main
+      # - name: Git Version
+        # id: version
+        # uses: codacy/git-version@2.5.4
+        # with:
+          # release-branch: main
 
       - name: Restore dependencies
         run: dotnet restore MessageSerialization.sln
 
       - name: Build
-        run: dotnet build MessageSerialization.sln --configuration Release --no-restore -p:Version=${{ steps.version.outputs.version }}
+        run: dotnet build MessageSerialization.sln --configuration Release --no-restore -p:Version=${{ needs.git-version.outputs.version }}
 
       - name: Run tests
         run: dotnet test MessageSerialization.sln --configuration Release --logger "trx;LogFileName=test-results.trx" --no-build
@@ -57,18 +73,18 @@ jobs:
           reporter: dotnet-trx
         
       - name: Create NuGet package
-        run: dotnet pack MessageSerializer/MessageSerializer.csproj --configuration Release --output nupkg -p:Version=${{ steps.version.outputs.version }} --no-build
+        run: dotnet pack MessageSerializer/MessageSerializer.csproj --configuration Release --output nupkg -p:Version=${{ needs.git-version.outputs.version }} --no-build
 
       - name: Create NuGet package
         run: |
             cd
             dir /s *.nupkg
-            echo MessageSerializer\bin\Release\MessageSerializer.${{ steps.version.outputs.version }}.nupkg
-            dir MessageSerializer\bin\Release\MessageSerializer.${{ steps.version.outputs.version }}.0.nupkg
+            echo MessageSerializer\bin\Release\MessageSerializer.${{ needs.git-version.outputs.version }}.nupkg
+            dir MessageSerializer\bin\Release\MessageSerializer.${{ needs.git-version.outputs.version }}.nupkg
         shell: cmd
 
       - name: Publish to GitHub Packages
         if: |
           (github.ref == 'refs/heads/main') || 
           (github.event_name == 'workflow_dispatch' && github.event.inputs.forcePublish == 'true')
-        run: dotnet nuget push --source ${{ env.NUGET_PUBLISH_URL }} --api-key ${{ secrets.GITHUB_TOKEN }} MessageSerializer/bin/Release/MessageSerializer.${{ steps.version.outputs.version }}.0.nupkg
+        run: dotnet nuget push --source ${{ env.NUGET_PUBLISH_URL }} --api-key ${{ secrets.GITHUB_TOKEN }} MessageSerializer/bin/Release/MessageSerializer.${{ needs.git-version.outputs.version }}.nupkg
