@@ -7,8 +7,14 @@
         <Authors>Jack Nino</Authors>
         <Title>MessageSerializer</Title>
         <Product>MessageSerializer</Product>
-        <Description>Serialize and Deserialize messages to and from classes to byte arrays for message protocols. For more information see https://github.com/jacknino/MessageSerializer</Description>
+        <Description>Serialize and deserialize messages to and from classes to byte arrays for byte oriented message protocols. For more information see https://github.com/jacknino/MessageSerializer</Description>
         <Copyright>Copyright (c) 2026 Jack Nino. All rights reserved.</Copyright>
+        <RepositoryUrl>https://github.com/jacknino/MessageSerializer</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageProjectUrl>https://jacknino.github.io/MessageSerializer/</PackageProjectUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageIcon>MessageSerializer.png</PackageIcon>
+        <PackageIconUrl />
     </PropertyGroup>
     
     <ItemGroup>
@@ -43,6 +49,10 @@
       </None>
       <None Update="SimpleXmlTestClass.xml">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Include="..\MessageSerializer.png">
+        <Pack>True</Pack>
+        <PackagePath></PackagePath>
       </None>
     </ItemGroup>
 </Project>
