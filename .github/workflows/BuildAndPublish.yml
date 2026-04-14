@@ -11,10 +11,6 @@ on:
         default: 'false'
         type: boolean
 
-permissions:
-  id-token: write
-  contents: read
-
 env:
     GITHUB_NUGET_PUBLISH_URL: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
     # ACTUAL_NUGET_PUBLISH_URL: https://api.nuget.org/v3/index.json
@@ -101,6 +97,9 @@ jobs:
         if: |
           (github.ref == 'refs/heads/main') || 
           (github.event_name == 'workflow_dispatch' && github.event.inputs.forcePublish == 'true')
+        permissions:
+          id-token: write
+          contents: read
         id: login
         with:
           user: ${{ secrets.NUGET_PUBLISH_USERNAME }}
