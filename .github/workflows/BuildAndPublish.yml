@@ -12,7 +12,9 @@ on:
         type: boolean
 
 env:
-    NUGET_PUBLISH_URL: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
+    GITHUB_NUGET_PUBLISH_URL: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
+    # ACTUAL_NUGET_PUBLISH_URL: https://api.nuget.org/v3/index.json
+    ACTUAL_NUGET_PUBLISH_URL: https://int.nugettest.org
     BASE_VERSION: 1.0
 
 jobs:
@@ -79,12 +81,29 @@ jobs:
         run: |
             cd
             dir /s *.nupkg
-            echo MessageSerializer\bin\Release\MessageSerializer.${{ needs.git-version.outputs.version }}.nupkg
-            dir MessageSerializer\bin\Release\MessageSerializer.${{ needs.git-version.outputs.version }}.nupkg
+            echo MessageSerializer\bin\Release\JackNino.MessageSerializer.${{ needs.git-version.outputs.version }}.nupkg
+            dir MessageSerializer\bin\Release\JackNino.MessageSerializer.${{ needs.git-version.outputs.version }}.nupkg
         shell: cmd
 
       - name: Publish to GitHub Packages
         if: |
           (github.ref == 'refs/heads/main') || 
           (github.event_name == 'workflow_dispatch' && github.event.inputs.forcePublish == 'true')
-        run: dotnet nuget push --source ${{ env.NUGET_PUBLISH_URL }} --api-key ${{ secrets.GITHUB_TOKEN }} MessageSerializer/bin/Release/MessageSerializer.${{ needs.git-version.outputs.version }}.nupkg
+        run: dotnet nuget push --source ${{ env.GITHUB_NUGET_PUBLISH_URL }} --api-key ${{ secrets.GITHUB_TOKEN }} MessageSerializer/bin/Release/JackNino.MessageSerializer.${{ needs.git-version.outputs.version }}.nupkg
+
+      # Get a short-lived NuGet API key
+      - name: Get NuGet temp API key (OIDC → temp API key)
+        uses: NuGet/login@v1
+        if: |
+          (github.ref == 'refs/heads/main') || 
+          (github.event_name == 'workflow_dispatch' && github.event.inputs.forcePublish == 'true')
+        id: login
+        with:
+          user: ${{ secrets.NUGET_PUBLISH_USER }}
+    
+      # Push the package
+      - name: NuGet push
+        if: |
+          (github.ref == 'refs/heads/main') || 
+          (github.event_name == 'workflow_dispatch' && github.event.inputs.forcePublish == 'true')
+        run: dotnet nuget push --source ${{ env.ACTUAL_NUGET_PUBLISH_URL }} --api-key ${{steps.login.outputs.NUGET_API_KEY}} MessageSerializer/bin/Release/JackNino.MessageSerializer.${{ needs.git-version.outputs.version }}.nupkg
