@@ -21,7 +21,7 @@ permissions:
 env:
     GITHUB_NUGET_PUBLISH_URL: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
     # ACTUAL_NUGET_PUBLISH_URL: https://api.nuget.org/v3/index.json
-    ACTUAL_NUGET_PUBLISH_URL: https://int.nugettest.org
+    ACTUAL_NUGET_PUBLISH_URL: https://apiint.nugettest.org/v3/index.json
     BASE_VERSION: 1.0
 
 jobs:
@@ -107,6 +107,7 @@ jobs:
         id: login
         with:
           user: ${{ secrets.NUGET_PUBLISH_USERNAME }}
+          token-service-url: https://apiint.nugettest.org/api/v2/token
     
       # Push the package
       - name: NuGet push
