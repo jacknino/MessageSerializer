@@ -16,6 +16,7 @@ permissions:
   id-token: write
   contents: write
   checks: write
+  packages: write
 
 env:
     GITHUB_NUGET_PUBLISH_URL: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
