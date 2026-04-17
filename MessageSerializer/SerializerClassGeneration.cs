@@ -43,6 +43,7 @@ namespace MessageSerializer
         protected void AddReferences(CodeCompileUnit compileUnit, Type type)
         {
             compileUnit.ReferencedAssemblies.Add("System.dll");
+            //compileUnit.ReferencedAssemblies.Add(typeof(object).Assembly.Location);
             compileUnit.ReferencedAssemblies.Add(Path.Combine(MyDirectory, "MessageSerializer.dll"));
             compileUnit.ReferencedAssemblies.Add(type.Module.FullyQualifiedName);
         }
@@ -50,8 +51,8 @@ namespace MessageSerializer
         protected CodeNamespace CreateUsingStatements(string codeNamespaceName, CodeCompileUnit codeCompileUnit)
         {
             CodeNamespace codeNamespace = new CodeNamespace(codeNamespaceName);
-            codeNamespace.Imports.Add(new CodeNamespaceImport("System"));
-            codeNamespace.Imports.Add(new CodeNamespaceImport("MessageSerializer"));
+            //codeNamespace.Imports.Add(new CodeNamespaceImport("System"));
+            //codeNamespace.Imports.Add(new CodeNamespaceImport("MessageSerializer"));
 
             codeCompileUnit.Namespaces.Add(codeNamespace);
             return codeNamespace;
@@ -696,7 +697,8 @@ namespace MessageSerializer
         protected CodeTypeDeclaration CreateClassDeclaration(Type type, CodeNamespace codeNamespace)
         {
             CodeTypeDeclaration codeTypeDeclaration = new CodeTypeDeclaration(GetClassName(type));
-            codeTypeDeclaration.BaseTypes.Add(new CodeTypeReference("SerializerBase"));
+            //codeTypeDeclaration.BaseTypes.Add(new CodeTypeReference("SerializerBase"));
+            codeTypeDeclaration.BaseTypes.Add(new CodeTypeReference("MessageSerializer.SerializerBase"));
             codeNamespace.Types.Add(codeTypeDeclaration);
             return codeTypeDeclaration;
         }

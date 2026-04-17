@@ -30,11 +30,26 @@ namespace MessageSerializer
             // the files will be different
             string codeOutputFilename = _baseClassName + type.Name + "Code" + _fileNumber++ + ".cs";
 
-            using (CSharpCodeProvider provider = new CSharpCodeProvider())
+            //using (CSharpCodeProvider provider = new CSharpCodeProvider())
+            using (CodeDomProvider provider = CodeDomProviderFactory.Create())
             {
                 CompilerParameters compilerParameters = new CompilerParameters();
                 OptionallyWriteCodeAndDebugInfoToDisk(codeCompileUnit, codeOutputFilename, provider, compilerParameters);
 
+                // Think can do a couple things here:
+                // This page has a simple thing that uses Roslyn with a CodeDomProvider and an ICodeCompiler
+                // https://github.com/jaredpar/roslyn-codedom/blob/master/src/Roslyn.CodeDom/RoslynCodeDomProvider.cs
+                // CSharpCodeProvider is also a CodeDomProvider that under decompilation seems to use
+                // CSharpCodeGenerator which is an ICodeCompiler and an ICodeGenerator.
+                // The ICodeGenerator part seems to still work for creating the code and outputting to a file
+                // so think can still use that to generate the code we need as it can take a stream
+                // Then we can use the example ICodeCompiler or something similar from above to take the
+                // value from this stream and compile it.  We probably want this stream to be the same for both
+                // creating the output file and for doing the compilation.
+                // Also just noticed the CreateCompiler() and CreateGenerator() from the example and the generator
+                // uses the CSharpCodeProvider.CreateGenerator()
+                // I'm guessing there is a way to figure out which framework we are currently running in to decide
+                // which provider we want to use
                 CompilerResults results = provider.CompileAssemblyFromDom(compilerParameters, codeCompileUnit);
                 ThrowExceptionOnCompileError(results);
 
@@ -42,7 +57,8 @@ namespace MessageSerializer
             }
         }
 
-        protected void OptionallyWriteCodeAndDebugInfoToDisk(CodeCompileUnit codeCompileUnit, string codeOutputFilename, CSharpCodeProvider provider, CompilerParameters compilerParameters)
+        //protected void OptionallyWriteCodeAndDebugInfoToDisk(CodeCompileUnit codeCompileUnit, string codeOutputFilename, CSharpCodeProvider provider, CompilerParameters compilerParameters)
+        protected void OptionallyWriteCodeAndDebugInfoToDisk(CodeCompileUnit codeCompileUnit, string codeOutputFilename, CodeDomProvider provider, CompilerParameters compilerParameters)
         {
             if (WriteCodeAndDebugInfoToDisk)
             {
@@ -58,18 +74,19 @@ namespace MessageSerializer
             }
         }
 
-        protected void OptionallyWriteCodeToDisk(string codeOutputFilename, CodeCompileUnit codeCompileUnit, CSharpCodeProvider provider)
+        protected void OptionallyWriteCodeToDisk(string codeOutputFilename, CodeCompileUnit codeCompileUnit, CodeDomProvider provider)
         {
             if (codeOutputFilename != "")
             {
-                TextWriter writer = File.CreateText(Path.Combine(MyDirectory, codeOutputFilename));
+                using (TextWriter writer = File.CreateText(Path.Combine(MyDirectory, codeOutputFilename)))
+                {
+                    ICodeGenerator codeGenerator = provider.CreateGenerator(writer);
+                    CodeGeneratorOptions options = GetCodeGeneratorOptions();
 
-                ICodeGenerator codeGenerator = provider.CreateGenerator(writer);
-                CodeGeneratorOptions options = GetCodeGeneratorOptions();
+                    codeGenerator.GenerateCodeFromCompileUnit(codeCompileUnit, writer, options);
 
-                codeGenerator.GenerateCodeFromCompileUnit(codeCompileUnit, writer, options);
-
-                writer.Close();
+                    writer.Close();
+                }
             }
         }
 

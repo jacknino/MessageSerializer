@@ -6,7 +6,7 @@ namespace MessageSerializerUnitTests
     [SetUpFixture]
     public class SetupMessageSerializerUnitTests
     {
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             SerializerClassGeneration.WriteCodeAndDebugInfoToDisk = true;
