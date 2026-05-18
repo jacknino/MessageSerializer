@@ -44,7 +44,7 @@ jobs:
           release-branch: main
 
   build:
-    runs-on: windows-latest
+    runs-on: windows-2025-vs2026
     needs: [ git-version ]
 
     steps:
